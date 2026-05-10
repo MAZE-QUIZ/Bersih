@@ -17,12 +17,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (QuizManager.Instance != null && QuizManager.Instance.IsQuizActive)
+        {
+            return;
+        }
+        
         ReadMovementInput();
     }
 
     private void FixedUpdate()
     {
+                if (QuizManager.Instance != null && QuizManager.Instance.IsQuizActive)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+        
         MovePlayer();
+
     }
 
     private void ReadMovementInput()
