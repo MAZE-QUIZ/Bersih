@@ -28,6 +28,6 @@ public abstract class DoorBase : MonoBehaviour, IInteractable
         if (spriteRenderer != null)
             spriteRenderer.color = Color.gray;
 
-        Debug.Log($"{gameObject.name} opened.");
+        Debug.Log($"{gameObject.name} terbuka.");
     }
 }
