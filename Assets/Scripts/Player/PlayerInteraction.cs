@@ -12,6 +12,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (QuizManager.Instance != null && QuizManager.Instance.IsQuizActive)
+        {
+            return;
+        }
+
         DetectNearestInteractable();
         HandleInteractionInput();
     }
@@ -36,12 +41,24 @@ public class PlayerInteraction : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
+        IInteractable interactable = hit.GetComponent<IInteractable>();
 
-            if (interactable == null)
-            {
-                continue;
-            }
+        if (interactable == null)
+        {
+            continue;
+        }
+
+        SpriteRenderer spriteRenderer = hit.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = hit.GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (spriteRenderer != null && !spriteRenderer.enabled)
+        {
+            continue;
+        }
 
             float distance = Vector2.Distance(transform.position, hit.transform.position);
 
